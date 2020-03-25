@@ -12,8 +12,13 @@ function LoginScreen({ navigation }) {
 
       <View style={styles.container}>
         <TextInput style={styles.textinput} placeholder="Emaill" />
-        <TextInput style={styles.textinput} placeholder="Password" />
-        <MyButton title="Login" />
+        <TextInput
+          secureTextEntry={true}
+          type="password"
+          style={styles.textinput}
+          placeholder="Password"
+        />
+        <MyButton onPress={() => navigation.navigate('Main')} title="Login" />
         <Text>
           Tidak Punya Akun ?{' '}
           <Text

@@ -12,8 +12,20 @@ function RegisterScreen({ navigation }) {
 
       <View style={styles.container}>
         <TextInput style={styles.textinput} placeholder="Emaill" />
-        <TextInput style={styles.textinput} placeholder="Password" />
-        <MyButton title="Register" onPress={() => Alert.alert('halo')} />
+        <TextInput
+          secureTextEntry={true}
+          style={styles.textinput}
+          placeholder="Password"
+        />
+        <TextInput
+          secureTextEntry={true}
+          style={styles.textinput}
+          placeholder="Confirm Password"
+        />
+        <MyButton
+          title="Register"
+          onPress={() => navigation.navigate('Main')}
+        />
         <Text>
           Sudah Punya Akun ?{' '}
           <Text onPress={() => navigation.goBack()} style={{ color: 'blue' }}>
