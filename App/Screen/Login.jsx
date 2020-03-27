@@ -1,8 +1,15 @@
-import React from 'react';
-import { StyleSheet, View, Text, TextInput, Alert, Image } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, View, Text, TextInput, Image } from 'react-native';
 import MyButton from '../components/Button';
+import { AuthContext } from '../context/authContext';
 
 function LoginScreen({ navigation }) {
+  const { setUser } = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const handleLogin = () => {
+    setUser(true);
+  };
   return (
     <View style={{ flex: 1 }}>
       <Image
@@ -11,14 +18,23 @@ function LoginScreen({ navigation }) {
       />
 
       <View style={styles.container}>
-        <TextInput style={styles.textinput} placeholder="Emaill" />
+        <TextInput
+          style={styles.textinput}
+          placeholder="Emaill"
+          onChangeText={(email) => setEmail(email)}
+          defaultValue={email}
+          autoCapitalize="none"
+        />
         <TextInput
           secureTextEntry={true}
           type="password"
           style={styles.textinput}
           placeholder="Password"
+          autoCapitalize="none"
+          onChangeText={(password) => setPassword(password)}
+          defaultValue={password}
         />
-        <MyButton onPress={() => navigation.navigate('Main')} title="Login" />
+        <MyButton onPress={handleLogin} title="Login" />
         <Text>
           Tidak Punya Akun ?{' '}
           <Text
