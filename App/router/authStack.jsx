@@ -7,7 +7,7 @@ import BottomNavigator from './BottomNavigator';
 
 const Stack = createStackNavigator();
 
-function IntroStack() {
+function AuthStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
@@ -37,4 +37,4 @@ function IntroStack() {
   );
 }
 
-export default IntroStack;
+export default AuthStack;
