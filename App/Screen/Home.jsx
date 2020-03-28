@@ -6,6 +6,7 @@ import {
   ScrollView,
   TextInput,
   FlatList,
+  SafeAreaView,
 } from 'react-native';
 import * as Icons from '@expo/vector-icons';
 import Card from '../components/Card';
@@ -40,8 +41,13 @@ function Home({ navigation }) {
     getVanue();
   }, []);
 
+  const goToDetail = (item) => {
+    navigation.navigate('Detail', item);
+  };
+
   const renderItem = ({ item }) => (
     <CardList
+      onPress={() => goToDetail(item)}
       name={item.name}
       Open={item.open_hour}
       locations={item.location}
@@ -51,7 +57,7 @@ function Home({ navigation }) {
 
   const { setToken } = useContext(AuthContext);
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ backgroundColor: 'white', flex: 1 }}
@@ -92,10 +98,11 @@ function Home({ navigation }) {
         <FlatList
           data={data}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
+          disableVirtualization={false}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

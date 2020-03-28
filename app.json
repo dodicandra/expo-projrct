@@ -3,7 +3,6 @@
     "name": "Main Bersama",
     "slug": "main-bersama",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
