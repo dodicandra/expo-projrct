@@ -6,10 +6,10 @@ import HomeStack from './HomeStack';
 import { AuthContext } from '../context/authContext';
 
 export default function RouteContainer() {
-  const { user } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   return (
     <NavigationContainer>
-      {user ? <BottomNavigator /> : <AuthStack />}
+      {token ? <BottomNavigator /> : <AuthStack />}
     </NavigationContainer>
   );
 }

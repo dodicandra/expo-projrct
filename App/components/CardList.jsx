@@ -1,22 +1,24 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 
-function CardList() {
+function CardList({ onPress }) {
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('../../assets/Image/volly.jpg')}
-        style={styles.Image}
-      />
-      <View style={{ flex: 1 }}>
-        <Text style={styles.Header}>Volly Venue</Text>
-        <Text style={{ marginLeft: 10 }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi dolores
-          aliquam architecto magnam dolore quidem eaque
-        </Text>
-        <Text style={styles.Price}>100.000 / jam</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Image
+          source={require('../../assets/Image/volly.jpg')}
+          style={styles.Image}
+        />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.Header}>Volly Venue</Text>
+          <Text style={{ marginLeft: 10 }}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+            dolores aliquam architecto magnam dolore quidem eaque
+          </Text>
+          <Text style={styles.Price}>100.000 / jam</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

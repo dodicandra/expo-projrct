@@ -8,12 +8,11 @@ function Card({ children }) {
 const styles = StyleSheet.create({
   card: {
     display: 'flex',
-    padding: 7,
+    padding: 10,
     borderRadius: 8,
     backgroundColor: 'white',
     elevation: 3,
     marginVertical: 10,
-    marginHorizontal: 20,
     shadowColor: '#333',
     shadowOffset: { width: 1, height: 1 },
     shadowRadius: 2,
@@ -21,6 +20,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     flexDirection: 'row',
     justifyContent: 'center',
+    width: 340,
+    height: 150,
   },
 });
 

@@ -4,11 +4,11 @@ import MyButton from '../components/Button';
 import { AuthContext } from '../context/authContext';
 
 function LoginScreen({ navigation }) {
-  const { setUser } = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleLogin = () => {
-    setUser(true);
+    setToken(true);
   };
   return (
     <View style={{ flex: 1 }}>

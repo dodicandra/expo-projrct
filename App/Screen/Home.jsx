@@ -15,60 +15,64 @@ import CardList from '../components/CardList';
 
 function Home({ navigation }) {
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      style={{ backgroundColor: 'white', flex: 1 }}
-    >
-      <Text style={styles.texKategori}>Kategori</Text>
-      <Card>
-        <CardItems title="Volly Ball">
-          <Icons.FontAwesome5 name="volleyball-ball" size={30} />
-        </CardItems>
-        <CardItems title="Pool">
-          <Icons.FontAwesome5 name="swimmer" size={30} />
-        </CardItems>
-        <CardItems title="Basket">
-          <Icons.FontAwesome5 name="basketball-ball" size={30} />
-        </CardItems>
-        <CardItems title="FootBall">
-          <Icons.FontAwesome5 name="football-ball" size={30} />
-        </CardItems>
-        <CardItems title="Bowling">
-          <Icons.FontAwesome5 name="bowling-ball" size={30} />
-        </CardItems>
-        <CardItems title="Golf">
-          <Icons.FontAwesome5 name="golf-ball" size={30} />
-        </CardItems>
-        <CardItems title="BaseBall">
-          <Icons.FontAwesome5 name="baseball-ball" size={30} />
-        </CardItems>
-        <CardItems title="FootBall">
-          <Icons.Ionicons name="ios-football" size={30} />
-        </CardItems>
-      </Card>
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ backgroundColor: 'white', flex: 1 }}
+      >
+        <Text style={styles.texKategori}>Kategori</Text>
+        <View
+          style={{
+            alignItems: 'center',
+          }}
+        >
+          <Card>
+            <CardItems title="Volly Ball">
+              <Icons.FontAwesome5
+                color="#70a1ff"
+                name="volleyball-ball"
+                size={30}
+              />
+            </CardItems>
+            <CardItems title="Basket">
+              <Icons.FontAwesome5
+                color="#ff7f50"
+                name="basketball-ball"
+                size={30}
+              />
+            </CardItems>
+            <CardItems title="SepakBola">
+              <Icons.Ionicons color="#a4b0be" name="ios-football" size={30} />
+            </CardItems>
+            <CardItems title="Futsal">
+              <Icons.Ionicons color="#2f3542" name="ios-football" size={30} />
+            </CardItems>
+          </Card>
+        </View>
 
-      <Text style={styles.textTersedia}>Tersedia</Text>
+        <Text style={styles.textTersedia}>Tersedia</Text>
 
-      <TextInput
-        style={{
-          height: 40,
-          marginHorizontal: 20,
-          borderRadius: 20,
-          paddingLeft: 15,
-          elevation: 3,
-          backgroundColor: 'white',
-        }}
-        placeholder="Cari Lokasi"
-      />
+        <TextInput
+          style={{
+            height: 40,
+            marginHorizontal: 20,
+            borderRadius: 20,
+            paddingLeft: 15,
+            elevation: 3,
+            backgroundColor: 'white',
+          }}
+          placeholder="Cari Lokasi"
+        />
 
-      <CardList />
-      <CardList />
-      <CardList />
-      <CardList />
-      <CardList />
-      <CardList />
-      <CardList />
-    </ScrollView>
+        <CardList onPress={() => navigation.navigate('Detail')} />
+        <CardList />
+        <CardList />
+        <CardList />
+        <CardList />
+        <CardList />
+        <CardList />
+      </ScrollView>
+    </View>
   );
 }
 

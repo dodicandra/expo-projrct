@@ -15,7 +15,21 @@ function HomeStack() {
         name="Home"
         component={Home}
       />
-      <Stack.Screen name="Detail" component={Detail} />
+      <Stack.Screen
+        options={{
+          headerStyle: {
+            backgroundColor: '#57E1D9',
+          },
+          headerTitleStyle: {
+            color: 'white',
+            fontSize: 27,
+            fontFamily: 'Viga-Regular',
+          },
+          headerTitleAlign: 'center',
+        }}
+        name="Detail"
+        component={Detail}
+      />
     </Stack.Navigator>
   );
 }
