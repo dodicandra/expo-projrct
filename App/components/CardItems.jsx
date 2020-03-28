@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-function CardItems({ children, title }) {
+function CardItems({ children, title, onPrees }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.content}>{children}</TouchableOpacity>
+      <TouchableOpacity onPress={onPrees} style={styles.content}>
+        {children}
+      </TouchableOpacity>
       <Text>{title}</Text>
     </View>
   );

@@ -1,21 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 
-function CardList({ onPress }) {
+function CardList({ onPress, image, name, locations, Open }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <Image
-          source={require('../../assets/Image/volly.jpg')}
+          source={{ uri: `https://mainbersama.demosanbercode.com${image}` }}
           style={styles.Image}
         />
         <View style={{ flex: 1 }}>
-          <Text style={styles.Header}>Volly Venue</Text>
-          <Text style={{ marginLeft: 10 }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-            dolores aliquam architecto magnam dolore quidem eaque
-          </Text>
-          <Text style={styles.Price}>100.000 / jam</Text>
+          <Text style={styles.Header}>{name}</Text>
+          <Text style={{ marginLeft: 10 }}>{locations}</Text>
+          <Text style={styles.Price}>open {Open}</Text>
         </View>
       </View>
     </TouchableOpacity>

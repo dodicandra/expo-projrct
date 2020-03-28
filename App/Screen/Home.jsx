@@ -1,19 +1,55 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
   Text,
-  Button,
   ScrollView,
-  Image,
   TextInput,
+  FlatList,
 } from 'react-native';
 import * as Icons from '@expo/vector-icons';
 import Card from '../components/Card';
 import CardItems from '../components/CardItems';
 import CardList from '../components/CardList';
+import { AuthContext } from '../context/authContext';
+const token =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbWFpbmJlcnNhbWEuZGVtb3NhbmJlcmNvZGUuY29tXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTg1Mzc1ODYwLCJleHAiOjE1ODU0MTkwNjAsIm5iZiI6MTU4NTM3NTg2MCwianRpIjoiZ0t3SXNTZWU3ZTJBUnBzMCIsInN1YiI6MTAsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.aUPlADzwEIgX4mxbtitO662r5iunO57qSgZYC9nVWNg';
 
 function Home({ navigation }) {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const getVanue = async () => {
+      try {
+        const response = await fetch(
+          `https://mainbersama.demosanbercode.com/api/venues`,
+          {
+            method: 'GET',
+            headers: {
+              Authorizations: `Bearer ${token}`,
+            },
+          }
+        );
+        const result = await response.json();
+        console.log(result);
+        setData(result.venues);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getVanue();
+  }, []);
+
+  const renderItem = ({ item }) => (
+    <CardList
+      name={item.name}
+      Open={item.open_hour}
+      locations={item.location}
+      image={item.thumbnail}
+    />
+  );
+
+  const { setToken } = useContext(AuthContext);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -27,7 +63,7 @@ function Home({ navigation }) {
           }}
         >
           <Card>
-            <CardItems title="Volly Ball">
+            <CardItems onPrees={() => setToken(false)} title="Volly Ball">
               <Icons.FontAwesome5
                 color="#70a1ff"
                 name="volleyball-ball"
@@ -52,25 +88,12 @@ function Home({ navigation }) {
 
         <Text style={styles.textTersedia}>Tersedia</Text>
 
-        <TextInput
-          style={{
-            height: 40,
-            marginHorizontal: 20,
-            borderRadius: 20,
-            paddingLeft: 15,
-            elevation: 3,
-            backgroundColor: 'white',
-          }}
-          placeholder="Cari Lokasi"
+        <TextInput style={styles.cariLokasi} placeholder="Cari Lokasi" />
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
         />
-
-        <CardList onPress={() => navigation.navigate('Detail')} />
-        <CardList />
-        <CardList />
-        <CardList />
-        <CardList />
-        <CardList />
-        <CardList />
       </ScrollView>
     </View>
   );
@@ -88,6 +111,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
     fontSize: 20,
+  },
+  cariLokasi: {
+    height: 40,
+    marginHorizontal: 20,
+    borderRadius: 20,
+    paddingLeft: 15,
+    elevation: 3,
+    backgroundColor: 'white',
   },
 });
 
