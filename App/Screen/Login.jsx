@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -36,23 +36,7 @@ function LoginScreen({ navigation }) {
       />
 
       <View style={styles.container}>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Emaill"
-          onChangeText={(email) => setEmail(email)}
-          defaultValue={email}
-          autoCapitalize="none"
-        />
-        <TextInput
-          secureTextEntry={true}
-          type="password"
-          style={styles.textinput}
-          placeholder="Password"
-          autoCapitalize="none"
-          onChangeText={(password) => setPassword(password)}
-          defaultValue={password}
-        />
-        <MyButton onPress={handleLogin} title="Login" />
+        <Form {...formProps} style={styles.textinput} />
         <Text>
           Tidak Punya Akun ?{' '}
           <Text
@@ -63,6 +47,8 @@ function LoginScreen({ navigation }) {
           </Text>{' '}
         </Text>
       </View>
+      <Button title="grt token" onPress={getToken} />
+      <Button title="grt token" onPress={removeToken} />
       <Image
         source={require('../../assets/Image/login2.png')}
         style={styles.Image1}
@@ -78,16 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textinput: {
-    width: 250,
-    height: 40,
-    borderRadius: 50,
-    paddingLeft: 20,
-    marginVertical: 10,
-    shadowColor: '#333',
-    backgroundColor: '#fff',
-    shadowOffset: { width: 1, height: 1 },
-    shadowRadius: 2,
-    elevation: 3,
+    width: '80%',
   },
   Image1: {
     resizeMode: 'stretch',
