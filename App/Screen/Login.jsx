@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,20 +7,29 @@ import {
   Image,
   AsyncStorage,
 } from 'react-native';
+// import AsyncStorage from '@react-native-community/async-storage';
 import MyButton from '../components/Button';
-import { AuthContext, authReducer } from '../context/authContext';
+import { AuthContext } from '../hooks';
 
 function LoginScreen({ navigation }) {
-  const [state, dispatch] = useReducer(authReducer);
+  const { state, dispatch } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const handleLogin = async () => {
     try {
       await AsyncStorage.setItem('token', 'mytokens1231');
+      let token = await AsyncStorage.getItem('token');
+      const detail = { id: 1, description: 'ini deskripsi' };
+      dispatch({ type: 'SET_TOKEN', value: token });
+      dispatch({ type: 'SET_DETAIL', value: detail });
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.warn(state);
+
   return (
     <View style={{ flex: 1 }}>
       <Image

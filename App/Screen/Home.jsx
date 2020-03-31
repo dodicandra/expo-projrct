@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -7,37 +7,17 @@ import {
   TextInput,
   FlatList,
   SafeAreaView,
+  AsyncStorage,
 } from 'react-native';
 import * as Icons from '@expo/vector-icons';
 import Card from '../components/Card';
 import CardItems from '../components/CardItems';
 import CardList from '../components/CardList';
-import { AuthContext } from '../context/authContext';
+import { AuthContext } from '../hooks';
 
 function Home({ navigation }) {
   const [data, setData] = useState({});
-
-  // useEffect(() => {
-  //   const getVanue = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `https://mainbersama.demosanbercode.com/api/venues`,
-  //         {
-  //           method: 'GET',
-  //           headers: {
-  //             Authorizations: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       const result = await response.json();
-  //       console.log(result);
-  //       setData(result.venues);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   getVanue();
-  // }, []);
+  const { state, dispatch } = useContext(AuthContext);
 
   const goToDetail = (item) => {
     navigation.navigate('Detail', item);
@@ -53,7 +33,11 @@ function Home({ navigation }) {
     />
   );
 
-  const { setToken } = useContext(AuthContext);
+  const hadleLogout = async () => {
+    await AsyncStorage.removeItem('token');
+    dispatch({ type: 'LOG_OUT' });
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
@@ -67,7 +51,7 @@ function Home({ navigation }) {
           }}
         >
           <Card>
-            <CardItems onPrees={() => setToken(false)} title="Volly Ball">
+            <CardItems onPrees={hadleLogout} title="Volly Ball">
               <Icons.FontAwesome5
                 color="#70a1ff"
                 name="volleyball-ball"
@@ -106,13 +90,11 @@ function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   texKategori: {
-    fontFamily: 'Viga-Regular',
     marginTop: 60,
     marginLeft: 20,
     fontSize: 20,
   },
   textTersedia: {
-    fontFamily: 'Viga-Regular',
     marginTop: 20,
     marginLeft: 20,
     fontSize: 20,
