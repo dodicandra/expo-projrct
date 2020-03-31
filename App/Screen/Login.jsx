@@ -1,14 +1,25 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Image } from 'react-native';
+import React, { useState, useReducer } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Image,
+  AsyncStorage,
+} from 'react-native';
 import MyButton from '../components/Button';
-import { AuthContext } from '../context/authContext';
+import { AuthContext, authReducer } from '../context/authContext';
 
 function LoginScreen({ navigation }) {
-  const { setToken } = useContext(AuthContext);
+  const [state, dispatch] = useReducer(authReducer);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleLogin = () => {
-    setToken(true);
+  const handleLogin = async () => {
+    try {
+      await AsyncStorage.setItem('token', 'mytokens1231');
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <View style={{ flex: 1 }}>

@@ -1,15 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useReducer } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './authStack';
 import BottomNavigator from './BottomNavigator';
-import HomeStack from './HomeStack';
-import { AuthContext } from '../context/authContext';
+import { AuthContext, authReducer } from '../context/authContext';
 
 export default function RouteContainer() {
-  const { token } = useContext(AuthContext);
+  const [state] = useReducer(authReducer);
   return (
     <NavigationContainer>
-      {token ? <BottomNavigator /> : <AuthStack />}
+      {state.token !== null ? <BottomNavigator /> : <AuthStack />}
     </NavigationContainer>
   );
 }
