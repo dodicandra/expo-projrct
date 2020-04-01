@@ -4,6 +4,9 @@ import RouteContainer from './App/router/NavigationContainer';
 import AuthProvider from './App/context/Provider/AuthProvider';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://mainbersama.demosanbercode.com';
 
 const getFont = () => {
   return Font.loadAsync({

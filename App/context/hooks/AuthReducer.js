@@ -1,9 +1,14 @@
 import { createContext, useReducer } from 'react';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({
+  token: null,
+  login: (userData) => {},
+  logout: () => {},
+});
 
 export const initialState = {
   token: null,
+  isLoading: false,
 };
 
 export const authReducer = (state, action) => {
@@ -11,7 +16,7 @@ export const authReducer = (state, action) => {
     case 'SET_TOKEN':
       return {
         ...state,
-        token: action.value,
+        token: action.payload,
       };
     case 'LOG_OUT':
       return {
@@ -21,7 +26,17 @@ export const authReducer = (state, action) => {
     case 'LOG_IN':
       return {
         ...state,
-        token: action.value,
+        token: action.payload,
+      };
+    case 'SET_LOADING':
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case 'STOP_LOADING':
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;

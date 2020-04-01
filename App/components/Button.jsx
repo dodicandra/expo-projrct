@@ -1,11 +1,25 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-function MyButton({ onPress, title }) {
+function MyButton({ onPress, title, disabled }) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text style={styles.text}>{title}</Text>
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
+      style={styles.container}
+    >
+      {disabled ? (
+        <ActivityIndicator size="small" color="white" />
+      ) : (
+        <Text style={styles.text}>{title}</Text>
+      )}
     </TouchableOpacity>
   );
 }

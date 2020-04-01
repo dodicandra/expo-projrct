@@ -1,32 +1,32 @@
 import React, { useState, useContext } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  Image,
-  AsyncStorage,
-} from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
+import { StyleSheet, View, Text, TextInput, Image } from 'react-native';
 import MyButton from '../components/Button';
 import { AuthContext } from '../context/hooks';
+import * as api from '../Api';
 
 function LoginScreen({ navigation }) {
-  const { state, dispatch } = useContext(AuthContext);
+  const { state, login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  const handleLogin = async (data) => {
     try {
-      await AsyncStorage.setItem('token', 'mytokens1231');
-      let token = await AsyncStorage.getItem('token');
-      dispatch({ type: 'SET_TOKEN', value: token });
+      let response = await api.login(data);
+      console.log(response, 'onLogin');
+      await login(response.token);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.warn(state);
+  const onSubmit = () => {
+    let data = {
+      email: email,
+      password: password,
+    };
+
+    handleLogin(data);
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -52,7 +52,11 @@ function LoginScreen({ navigation }) {
           onChangeText={(password) => setPassword(password)}
           defaultValue={password}
         />
-        <MyButton onPress={handleLogin} title="Login" />
+        <MyButton
+          disabled={state.isLoading ? true : false}
+          onPress={onSubmit}
+          title="LOGIN"
+        />
         <Text>
           Tidak Punya Akun ?{' '}
           <Text

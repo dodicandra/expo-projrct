@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -14,13 +14,22 @@ import Card from '../components/Card';
 import CardItems from '../components/CardItems';
 import CardList from '../components/CardList';
 import { AuthContext } from '../context/hooks';
+import * as api from '../Api';
 
 function Home({ navigation }) {
   const [data, setData] = useState({});
-  const { state, dispatch } = useContext(AuthContext);
-  console.warn(state);
+  const { state, dispatch, logout } = useContext(AuthContext);
   const goToDetail = (item) => {
     navigation.navigate('Detail', item);
+  };
+
+  useEffect(() => {
+    getDatas();
+  }, [data]);
+
+  const getDatas = async () => {
+    let ress = await api.getVenue();
+    setData(ress.venues);
   };
 
   const renderItem = ({ item }) => (
@@ -34,8 +43,7 @@ function Home({ navigation }) {
   );
 
   const hadleLogout = async () => {
-    await AsyncStorage.removeItem('token');
-    dispatch({ type: 'LOG_OUT' });
+    logout();
   };
 
   return (

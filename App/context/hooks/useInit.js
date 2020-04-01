@@ -9,7 +9,7 @@ export const useInit = () => {
     const getToken = async () => {
       try {
         const token = await AsyncStorage.getItem('token');
-        authContext.dispatch({ type: 'SET_TOKEN', value: token });
+        authContext.dispatch({ type: 'SET_TOKEN', payload: token });
       } catch (error) {
         console.log(error);
       }
