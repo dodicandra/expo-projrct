@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Profile from '../Screen/Profile';
+import HistoryScreen from '../Screen/History';
 
 const Stack = createStackNavigator();
 
-function ProfileStack() {
+const History = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -12,11 +12,11 @@ function ProfileStack() {
           headerStyle: { backgroundColor: '#57E1D9' },
           headerTitleAlign: 'center',
         }}
-        name="Profile"
-        component={Profile}
+        name="History"
+        component={HistoryScreen}
       />
     </Stack.Navigator>
   );
-}
+};
 
-export default ProfileStack;
+export default History;

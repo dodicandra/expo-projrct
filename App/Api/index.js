@@ -6,7 +6,7 @@ export async function login(data) {
     let ress = await axios.post('/api/login', data);
     return ress.data;
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 }
 

@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, Alert, Image } from 'react-native';
 import MyButton from '../components/Button';
 import { AuthContext } from '../context/hooks';
 import * as api from '../Api';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function RegisterScreen({ navigation }) {
   const { state, login, dispatch } = useContext(AuthContext);
@@ -10,12 +11,12 @@ function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  console.log(email);
   const hadleRegister = async (data) => {
     dispatch({ type: 'SET_LOADING' });
     try {
       let response = await api.register(data);
       dispatch({ type: 'STOP_LOADING' });
+      dispatch({ type: 'CLEAR_ERROR' });
       Alert.alert(
         'Register success',
         response.data.name,
@@ -23,7 +24,11 @@ function RegisterScreen({ navigation }) {
         { cancelable: false }
       );
     } catch (error) {
-      console.log(error);
+      console.log('REGISTER', error.message);
+      dispatch({
+        type: 'SET_ERROR',
+        payload: 'password harus 6 karakter dan email tidak valid',
+      });
     }
   };
 
@@ -45,6 +50,9 @@ function RegisterScreen({ navigation }) {
       />
 
       <View style={styles.container}>
+        {state.errors ? (
+          <Text style={styles.errorMesage}>{state.errors}</Text>
+        ) : null}
         <TextInput
           onChangeText={(email) => setEmail(email)}
           style={styles.textinput}
@@ -66,12 +74,20 @@ function RegisterScreen({ navigation }) {
           title="Register"
           onPress={onSubmit}
         />
-        <Text>
-          Sudah Punya Akun ?{' '}
-          <Text onPress={() => navigation.goBack()} style={{ color: 'blue' }}>
-            Login
-          </Text>{' '}
-        </Text>
+        <TouchableOpacity>
+          <Text>
+            Sudah Punya Akun ?{' '}
+            <Text
+              onPress={() => {
+                navigation.goBack();
+                dispatch({ type: 'CLEAR_ERROR' });
+              }}
+              style={{ color: 'blue' }}
+            >
+              Login
+            </Text>{' '}
+          </Text>
+        </TouchableOpacity>
       </View>
       <Image
         source={require('../../assets/Image/login2.png')}
@@ -101,6 +117,10 @@ const styles = StyleSheet.create({
   },
   Image1: {
     resizeMode: 'stretch',
+  },
+  errorMesage: {
+    color: 'red',
+    fontSize: 10,
   },
 });
 

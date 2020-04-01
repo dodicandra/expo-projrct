@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as Icons from '@expo/vector-icons';
 import HomeStack from './HomeStack';
 import ProfileStack from './ProfileStack';
-import History from '../Screen/History';
+import History from './History';
 
 const Tab = createBottomTabNavigator();
 

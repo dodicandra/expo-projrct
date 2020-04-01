@@ -3,19 +3,27 @@ import { StyleSheet, View, Text, TextInput, Image } from 'react-native';
 import MyButton from '../components/Button';
 import { AuthContext } from '../context/hooks';
 import * as api from '../Api';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function LoginScreen({ navigation }) {
-  const { state, login, dispatch } = useContext(AuthContext);
+  const authActions = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {
+    state: { isLoading, errors },
+    login,
+    dispatch,
+  } = authActions;
 
   const handleLogin = async (data) => {
     try {
       let response = await api.login(data);
       await login(response.token);
+      dispatch({ type: 'CLEAR_ERROR' });
     } catch (error) {
-      console.log('LOGIN', error);
+      console.log('LOGIN', error.message);
       dispatch({ type: 'STOP_LOADING' });
+      dispatch({ type: 'SET_ERROR', payload: 'Invalid Email or Password' });
     }
   };
 
@@ -36,6 +44,7 @@ function LoginScreen({ navigation }) {
       />
 
       <View style={styles.container}>
+        {errors ? <Text style={styles.erorMessage}>{errors}</Text> : null}
         <TextInput
           style={styles.textinput}
           placeholder="Emaill"
@@ -53,19 +62,24 @@ function LoginScreen({ navigation }) {
           defaultValue={password}
         />
         <MyButton
-          disabled={state.isLoading ? true : false}
+          disabled={isLoading ? true : false}
           onPress={onSubmit}
           title="LOGIN"
         />
-        <Text>
-          Tidak Punya Akun ?{' '}
-          <Text
-            onPress={() => navigation.navigate('Register')}
-            style={{ color: 'blue' }}
-          >
-            Register
-          </Text>{' '}
-        </Text>
+        <TouchableOpacity>
+          <Text>
+            Tidak Punya Akun ?{' '}
+            <Text
+              onPress={() => {
+                navigation.navigate('Register');
+                dispatch({ type: 'CLEAR_ERROR' });
+              }}
+              style={{ color: 'blue' }}
+            >
+              Register
+            </Text>{' '}
+          </Text>
+        </TouchableOpacity>
       </View>
       <Image
         source={require('../../assets/Image/login2.png')}
@@ -95,6 +109,9 @@ const styles = StyleSheet.create({
   },
   Image1: {
     resizeMode: 'stretch',
+  },
+  erorMessage: {
+    color: 'red',
   },
 });
 

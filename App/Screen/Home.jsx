@@ -22,8 +22,6 @@ function Home({ navigation }) {
   const dataContext = useContext(DataContext);
   const autContext = useContext(AuthContext);
   const { isLoading, data } = dataContext.state;
-  console.log(isLoading);
-  console.log(data);
   const goToDetail = (item) => {
     navigation.navigate('Detail', item);
   };

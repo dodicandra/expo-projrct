@@ -9,6 +9,7 @@ export const AuthContext = createContext({
 export const initialState = {
   token: null,
   isLoading: false,
+  errors: null,
 };
 
 export const authReducer = (state, action) => {
@@ -37,6 +38,16 @@ export const authReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    case 'SET_ERROR':
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    case 'CLEAR_ERROR':
+      return {
+        ...state,
+        errors: null,
       };
     default:
       return state;
