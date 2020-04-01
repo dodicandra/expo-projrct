@@ -1,7 +1,7 @@
 import React, { useState, useReducer, useEffect, useContext } from 'react';
-import { useAuthContext, AuthContext } from './App/hooks';
+import { useAuthContext, AuthContext } from './App/context/hooks';
 import RouteContainer from './App/router/NavigationContainer';
-import AuthProvider from './App/hooks/AuthProvider';
+import AuthProvider from './App/context/Provider/AuthProvider';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 

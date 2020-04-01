@@ -13,7 +13,7 @@ import * as Icons from '@expo/vector-icons';
 import Card from '../components/Card';
 import CardItems from '../components/CardItems';
 import CardList from '../components/CardList';
-import { AuthContext } from '../hooks';
+import { AuthContext } from '../context/hooks';
 
 function Home({ navigation }) {
   const [data, setData] = useState({});

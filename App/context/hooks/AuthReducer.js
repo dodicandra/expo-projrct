@@ -2,11 +2,11 @@ import { createContext, useReducer } from 'react';
 
 export const AuthContext = createContext();
 
-const initialState = {
+export const initialState = {
   token: null,
 };
 
-const authReducer = (state, action) => {
+export const authReducer = (state, action) => {
   switch (action.type) {
     case 'SET_TOKEN':
       return {
@@ -28,7 +28,7 @@ const authReducer = (state, action) => {
   }
 };
 
-export const useAuthContext = () => {
-  const [authState, authDispatch] = useReducer(authReducer, initialState);
-  return { authState, authDispatch };
-};
+// export const useAuthContext = () => {
+//   const [authState, authDispatch] = useReducer(authReducer, initialState);
+//   return { authState, authDispatch };
+// };

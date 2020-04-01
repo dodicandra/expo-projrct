@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './authStack';
 import BottomNavigator from './BottomNavigator';
-import { AuthContext } from '../hooks/useAuthContext';
-import { useInit } from '../hooks';
+import { useInit, AuthContext } from '../context/hooks';
 
 export default function RouteContainer() {
   useInit();

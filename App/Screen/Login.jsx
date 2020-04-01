@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 // import AsyncStorage from '@react-native-community/async-storage';
 import MyButton from '../components/Button';
-import { AuthContext } from '../hooks';
+import { AuthContext } from '../context/hooks';
 
 function LoginScreen({ navigation }) {
   const { state, dispatch } = useContext(AuthContext);
