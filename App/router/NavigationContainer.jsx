@@ -6,11 +6,8 @@ import { AuthContext } from '../hooks/useAuthContext';
 import { useInit } from '../hooks';
 
 export default function RouteContainer() {
-  // initialisasi state pada context
   useInit();
   const { state, dispatch } = useContext(AuthContext);
-
-  console.warn('state token', state.token);
   return (
     <NavigationContainer>
       {state.token !== null ? <BottomNavigator /> : <AuthStack />}

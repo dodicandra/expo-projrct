@@ -4,8 +4,6 @@ export const AuthContext = createContext();
 
 const initialState = {
   token: null,
-  nama: null,
-  detail: null, //object
 };
 
 const authReducer = (state, action) => {
@@ -24,16 +22,6 @@ const authReducer = (state, action) => {
       return {
         ...state,
         token: action.value,
-      };
-    case 'SET_NAMA':
-      return {
-        ...state,
-        nama: action.value,
-      };
-    case 'SET_DETAIL':
-      return {
-        ...state,
-        detail: action.value,
       };
     default:
       return state;

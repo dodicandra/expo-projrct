@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   StyleSheet,
   View,
@@ -20,9 +20,7 @@ function LoginScreen({ navigation }) {
     try {
       await AsyncStorage.setItem('token', 'mytokens1231');
       let token = await AsyncStorage.getItem('token');
-      const detail = { id: 1, description: 'ini deskripsi' };
       dispatch({ type: 'SET_TOKEN', value: token });
-      dispatch({ type: 'SET_DETAIL', value: detail });
     } catch (error) {
       console.log(error);
     }

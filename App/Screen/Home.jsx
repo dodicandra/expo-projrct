@@ -18,7 +18,7 @@ import { AuthContext } from '../hooks';
 function Home({ navigation }) {
   const [data, setData] = useState({});
   const { state, dispatch } = useContext(AuthContext);
-
+  console.warn(state);
   const goToDetail = (item) => {
     navigation.navigate('Detail', item);
   };
@@ -93,11 +93,13 @@ const styles = StyleSheet.create({
     marginTop: 60,
     marginLeft: 20,
     fontSize: 20,
+    fontFamily: 'Viga-Regular',
   },
   textTersedia: {
     marginTop: 20,
     marginLeft: 20,
     fontSize: 20,
+    fontFamily: 'Viga-Regular',
   },
   cariLokasi: {
     height: 40,
