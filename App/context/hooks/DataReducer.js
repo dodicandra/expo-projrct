@@ -1,6 +1,8 @@
 import { createContext } from 'react';
 
-export const DataContext = createContext();
+export const DataContext = createContext({
+  getData: () => {},
+});
 
 export const dataInit = {
   data: [],
@@ -13,6 +15,7 @@ export const dateRducer = (state, action) => {
       return {
         ...state,
         data: action.payload,
+        isLoading: false,
       };
     case 'SET_LOADING':
       return {

@@ -9,8 +9,6 @@ function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  console.warn(state);
-
   const handleLogin = async (data) => {
     try {
       let response = await api.login(data);

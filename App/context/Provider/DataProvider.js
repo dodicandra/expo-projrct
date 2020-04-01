@@ -1,24 +1,26 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useMemo } from 'react';
 import { dateRducer, dataInit, DataContext } from '../hooks';
 import * as api from '../../Api';
 
 const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(dateRducer, dataInit);
 
-  // const GETdata = async () => {
-  //   try {
-  //     dispatch({ type: 'SET_LOADING' });
-  //     let ress = await api.getVenue();
-  //     dispatch({ type: 'SET_DATA', payload: ress.venues });
-  //     dispatch({ type: 'STOP_LOADING' });
-  //   } catch (error) {}
-  // };
+  const getData = async (data) => {
+    try {
+      dispatch({ type: 'SET_LOADING' });
+      dispatch({ type: 'SET_DATA', payload: data });
+      dispatch({ type: 'STOP_LOADING' });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: 'STOP_LOADING' });
+    }
+  };
 
-  return (
-    <DataContext.Provider value={{ state, dispatch }}>
-      {children}
-    </DataContext.Provider>
-  );
+  const value = useMemo(() => {
+    return { state, getData, dispatch };
+  }, [state]);
+
+  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };
 
 export default DataProvider;

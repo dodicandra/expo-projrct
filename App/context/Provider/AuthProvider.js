@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
 
   const setOtorisasiHeader = async (token) => {
     const FBIdToken = `Bearer ${token}`;
-    await AsyncStorage.setItem('token', FBIdToken);
+    await AsyncStorage.setItem('token', token);
     axios.defaults.headers.common['Authorization'] = FBIdToken;
   };
 
