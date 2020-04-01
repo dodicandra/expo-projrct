@@ -20,7 +20,6 @@ import axios from 'axios';
 function Home({ navigation }) {
   const dataContext = useContext(DataContext);
   const autContext = useContext(AuthContext);
-  console.warn(autContext.state);
   const goToDetail = (item) => {
     navigation.navigate('Detail', item);
   };
@@ -30,7 +29,8 @@ function Home({ navigation }) {
   }, [dataContext.state]);
 
   const getDatas = async () => {
-    dataContext.GETdata();
+    let ress = await api.getVenue();
+    dataContext.dispatch({ type: 'SET_DATA', payload: ress.venues });
   };
 
   const renderItem = ({ item }) => (
