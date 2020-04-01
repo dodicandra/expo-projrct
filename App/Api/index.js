@@ -10,6 +10,16 @@ export async function login(data) {
   }
 }
 
+export async function register(data) {
+  try {
+    let ress = await axios.post('/api/register', data);
+    console.log(ress);
+    return ress.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getVenue() {
   try {
     let token = await AsyncStorage.getItem('token');

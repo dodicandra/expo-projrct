@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     flexDirection: 'row',
     justifyContent: 'center',
-    width: 340,
-    height: 150,
+    maxWidth: 340,
+    minHeight: 150,
   },
 });
 

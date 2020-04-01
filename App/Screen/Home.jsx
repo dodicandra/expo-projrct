@@ -21,7 +21,6 @@ import { AppLoading } from 'expo';
 function Home({ navigation }) {
   const dataContext = useContext(DataContext);
   const autContext = useContext(AuthContext);
-  // const data = dataContext.state.data;
   const { isLoading, data } = dataContext.state;
   console.log(isLoading);
   console.log(data);
@@ -34,19 +33,19 @@ function Home({ navigation }) {
   }, []);
 
   const getDatas = async () => {
-    dataContext.dispatch({ type: 'SET_LOADING' });
-    let token = await AsyncStorage.getItem('token');
-    const config = {
-      header: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios
-      .get('/api/venues', config)
-      .then((response) => {
-        dataContext.dispatch({ type: 'SET_DATA', payload: response.data });
-      })
-      .catch((error) => console.log(error));
+    dataContext.dispatch({ type: 'SET_LOADING' }); // buat set loading
+    try {
+      let token = await AsyncStorage.getItem('token');
+      const config = {
+        header: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await axios.get('/api/venues', config);
+      dataContext.dispatch({ type: 'SET_DATA', payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const renderItem = ({ item }) => (
@@ -76,7 +75,7 @@ function Home({ navigation }) {
           }}
         >
           <Card>
-            <CardItems onPrees={hadleLogout} title="Volly Ball">
+            <CardItems onPrees={hadleLogout} title="logOut">
               <Icons.FontAwesome5
                 color="#70a1ff"
                 name="volleyball-ball"

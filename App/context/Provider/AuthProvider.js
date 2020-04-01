@@ -26,6 +26,10 @@ const AuthProvider = ({ children }) => {
     dispatch({ type: 'STOP_LOADING' });
   }
 
+  async function register() {
+    dispatch({ type: 'SET_LOADING' });
+  }
+
   const setOtorisasiHeader = async (token) => {
     const FBIdToken = `Bearer ${token}`;
     await AsyncStorage.setItem('token', token);
