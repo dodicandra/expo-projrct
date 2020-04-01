@@ -18,7 +18,6 @@ import { AuthContext } from '../context/hooks';
 function Home({ navigation }) {
   const [data, setData] = useState({});
   const { state, dispatch } = useContext(AuthContext);
-  console.warn(state);
   const goToDetail = (item) => {
     navigation.navigate('Detail', item);
   };

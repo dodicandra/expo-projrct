@@ -26,8 +26,6 @@ function LoginScreen({ navigation }) {
     }
   };
 
-  console.warn(state);
-
   return (
     <View style={{ flex: 1 }}>
       <Image
