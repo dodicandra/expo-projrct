@@ -11,10 +11,17 @@ export async function login(data) {
 
 export async function getVenue() {
   try {
-    let ress = axios.get('/api/venues');
+    const options = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+
+    let ress = axios.get('/api/venues', options);
     let result = (await ress).data;
     return result;
   } catch (error) {
-    console.log(error);
+    console.log('API', error.message);
   }
 }

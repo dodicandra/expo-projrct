@@ -5,17 +5,19 @@ import { AuthContext } from '../context/hooks';
 import * as api from '../Api';
 
 function LoginScreen({ navigation }) {
-  const { state, login } = useContext(AuthContext);
+  const { state, login, dispatch } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  console.warn(state);
 
   const handleLogin = async (data) => {
     try {
       let response = await api.login(data);
-      console.log(response, 'onLogin');
       await login(response.token);
     } catch (error) {
-      console.log(error);
+      console.log('LOGIN', error);
+      dispatch({ type: 'STOP_LOADING' });
     }
   };
 

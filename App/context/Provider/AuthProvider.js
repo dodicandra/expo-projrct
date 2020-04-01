@@ -13,16 +13,24 @@ const AuthProvider = ({ children }) => {
 
   async function login(data) {
     dispatch({ type: 'SET_LOADING' });
-    await AsyncStorage.setItem('token', JSON.stringify(data));
-    axios.defaults.headers.common['Authorization'] = `Bearer ${data}`;
+    await setOtorisasiHeader(data);
     dispatch({ type: 'LOG_IN', payload: data });
     dispatch({ type: 'STOP_LOADING' });
   }
 
   async function logout() {
-    AsyncStorage.removeItem('token');
+    dispatch({ type: 'SET_LOADING' });
+    await AsyncStorage.removeItem('token');
+    delete axios.defaults.headers.common['Authorization'];
     dispatch({ type: 'LOG_OUT' });
+    dispatch({ type: 'STOP_LOADING' });
   }
+
+  const setOtorisasiHeader = async (token) => {
+    const FBIdToken = `Bearer ${token}`;
+    await AsyncStorage.setItem('token', FBIdToken);
+    axios.defaults.headers.common['Authorization'] = FBIdToken;
+  };
 
   return (
     <AuthContext.Provider value={{ state, dispatch, login, logout }}>

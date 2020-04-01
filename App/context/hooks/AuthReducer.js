@@ -42,8 +42,3 @@ export const authReducer = (state, action) => {
       return state;
   }
 };
-
-// export const useAuthContext = () => {
-//   const [authState, authDispatch] = useReducer(authReducer, initialState);
-//   return { authState, authDispatch };
-// };
