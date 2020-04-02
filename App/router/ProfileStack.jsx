@@ -11,6 +11,12 @@ function ProfileStack() {
         options={{
           headerStyle: { backgroundColor: '#57E1D9' },
           headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: 'white',
+            fontSize: 27,
+            fontFamily: 'Viga-Regular',
+          },
+          headerTitleAlign: 'center',
         }}
         name="Profile"
         component={Profile}

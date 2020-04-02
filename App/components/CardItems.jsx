@@ -7,7 +7,7 @@ function CardItems({ children, title, onPrees }) {
       <TouchableOpacity onPress={onPrees} style={styles.content}>
         {children}
       </TouchableOpacity>
-      <Text>{title}</Text>
+      <Text style={styles.teks}>{title}</Text>
     </View>
   );
 }
@@ -33,6 +33,10 @@ const styles = StyleSheet.create({
   title: {
     position: 'absolute',
     bottom: -15,
+  },
+  teks: {
+    fontSize: 10,
+    fontFamily: 'Viga-Regular',
   },
 });
 
