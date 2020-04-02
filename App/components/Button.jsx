@@ -13,7 +13,13 @@ function MyButton({ onPress, title, disabled }) {
     <TouchableOpacity
       disabled={disabled}
       onPress={onPress}
-      style={styles.container}
+      style={
+        !disabled
+          ? { ...styles.container, backgroundColor: '#57E1D9' }
+          : { ...styles.container, backgroundColor: '#737272' }
+      }
+      accessibilityTraits="button"
+      importantForAccessibility="yes"
     >
       {disabled ? (
         <ActivityIndicator size="small" color="white" />
@@ -26,7 +32,6 @@ function MyButton({ onPress, title, disabled }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#57E1D9',
     width: 100,
     height: 30,
     borderRadius: 50,

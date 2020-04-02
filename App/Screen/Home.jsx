@@ -33,13 +33,7 @@ function Home({ navigation }) {
   const getDatas = async () => {
     dataContext.dispatch({ type: 'SET_LOADING' }); // buat set loading
     try {
-      let token = await AsyncStorage.getItem('token');
-      const config = {
-        header: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await axios.get('/api/venues', config);
+      const response = await axios.get('/api/venues');
       dataContext.dispatch({ type: 'SET_DATA', payload: response.data });
     } catch (error) {
       console.log(error);
@@ -56,10 +50,6 @@ function Home({ navigation }) {
     />
   );
 
-  const hadleLogout = async () => {
-    autContext.logout();
-  };
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
@@ -73,7 +63,7 @@ function Home({ navigation }) {
           }}
         >
           <Card>
-            <CardItems onPrees={hadleLogout} title="logOut">
+            <CardItems title="Voli">
               <Icons.FontAwesome5
                 color="#70a1ff"
                 name="volleyball-ball"
