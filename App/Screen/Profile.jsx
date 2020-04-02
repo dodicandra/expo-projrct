@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../context/hooks';
+import * as Icons from '@expo/vector-icons';
 import axios from 'axios';
 
 import CardProfile from '../components/CardProfile';
@@ -27,13 +28,12 @@ function Profile() {
     autContext.logout();
   };
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, alignItems: 'center' }}>
       <CardProfile
         name={data.name}
         email={data.email}
         createAt={data.created_at}
       />
-
       <View style={styles.center}>
         <TouchableOpacity onPress={hadleLogout} style={styles.btnContainer}>
           <Text style={styles.TextBtn}>LOGOUT</Text>

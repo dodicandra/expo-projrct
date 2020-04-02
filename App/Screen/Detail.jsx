@@ -8,7 +8,6 @@ import {
   Picker,
   TextInput,
 } from 'react-native';
-import axios from 'axios';
 import * as api from '../Api';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -97,7 +96,12 @@ function Detail({ navigation, route }) {
             <Text>{moment(playDate).format('YYYY-MM-DD')}</Text>
           </TouchableOpacity>
           <TextInput
-            style={{ elevation: 3, backgroundColor: 'white', padding: 10 }}
+            style={{
+              elevation: 3,
+              backgroundColor: 'white',
+              padding: 10,
+              fontSize: 13,
+            }}
             placeholder="juamlah pemain"
             keyboardType="number-pad"
             onChangeText={(text) => setPlayer(text)}
@@ -181,9 +185,14 @@ const styles = StyleSheet.create({
   },
   CardForm: {
     width: '90%',
-    height: 300,
+    height: 320,
     marginTop: 20,
     justifyContent: 'space-evenly',
+    backgroundColor: 'white',
+    padding: 10,
+    display: 'flex',
+    borderTopEndRadius: 10,
+    borderTopStartRadius: 10,
   },
   img: {
     width: 300,

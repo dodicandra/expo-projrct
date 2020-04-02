@@ -7,7 +7,6 @@ import {
   TextInput,
   FlatList,
   SafeAreaView,
-  AsyncStorage,
   ActivityIndicator,
 } from 'react-native';
 import * as Icons from '@expo/vector-icons';
@@ -15,13 +14,16 @@ import Card from '../components/Card';
 import CardItems from '../components/CardItems';
 import CardList from '../components/CardList';
 import { AuthContext, DataContext } from '../context/hooks';
-import axios from 'axios';
-import { AppLoading } from 'expo';
+// import axios from 'axios';
+import * as api from '../Api';
 
 function Home({ navigation }) {
   const dataContext = useContext(DataContext);
-  const autContext = useContext(AuthContext);
-  const { isLoading, data } = dataContext.state;
+  const {
+    state: { isLoading, data },
+    setData,
+  } = dataContext;
+  console.log('=>', isLoading);
   const goToDetail = (item) => {
     navigation.navigate('Detail', item);
   };
@@ -31,10 +33,9 @@ function Home({ navigation }) {
   }, []);
 
   const getDatas = async () => {
-    dataContext.dispatch({ type: 'SET_LOADING' }); // buat set loading
     try {
-      const response = await axios.get('/api/venues');
-      dataContext.dispatch({ type: 'SET_DATA', payload: response.data });
+      const response = await api.getVenue();
+      await setData(response.venues);
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +94,7 @@ function Home({ navigation }) {
           <ActivityIndicator size="large" color="#57E1D9" />
         ) : (
           <FlatList
-            data={data.venues}
+            data={data}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
             disableVirtualization={false}

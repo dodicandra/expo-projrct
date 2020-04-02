@@ -6,7 +6,7 @@ export const DataContext = createContext({
 
 export const dataInit = {
   data: [],
-  isLoading: false,
+  isLoading: true,
 };
 
 export const dateRducer = (state, action) => {

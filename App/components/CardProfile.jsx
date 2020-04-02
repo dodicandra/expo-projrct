@@ -5,34 +5,13 @@ import moment from 'moment';
 
 const CardProfile = ({ name, email, createAt }) => {
   return (
-    <View
-      style={{
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-        elevation: 3,
-        flex: 1,
-        maxHeight: 200,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        marginHorizontal: 10,
-        marginBottom: 10,
-      }}
-    >
-      <View
-        style={{
-          flex: 0.3,
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-        }}
-      >
+    <View style={styles.container}>
+      <View style={styles.contentContainer}>
         <Text style={{ ...styles.font }}>{name}</Text>
         <Text style={{ ...styles.font }}>{email}</Text>
       </View>
-      <View style={{ flex: 2 }}>
-        <View style={{ ...styles.center }}>
-          <Icons.FontAwesome5 name="user-circle" size={140} />
-        </View>
+      <View style={{ flex: 2, ...styles.center }}>
+        <Icons.FontAwesome5 name="user-circle" size={140} />
       </View>
       <View style={{ flex: 0.3 }}>
         <Text
@@ -61,6 +40,22 @@ const styles = StyleSheet.create({
   center: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  container: {
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    marginBottom: 10,
+    elevation: 3,
+    width: '90%',
+    height: 200,
+  },
+  contentContainer: {
+    flex: 0.3,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
 
