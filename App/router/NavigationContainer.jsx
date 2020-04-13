@@ -17,7 +17,7 @@ export default function RouteContainer() {
     };
 
     getToken();
-  }, []);
+  }, [authReducer.userToken]);
 
   return (
     <NavigationContainer>

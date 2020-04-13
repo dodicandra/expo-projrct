@@ -7,6 +7,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  TouchableOpacity,
 } from 'react-native';
 import MyButton from '../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
@@ -54,15 +55,11 @@ function LoginScreen({ navigation }) {
             defaultValue={password}
           />
           <MyButton disabled={isLoading} onPress={handleLogin} title="Login" />
-          <Text>
-            Tidak Punya Akun ?{' '}
-            <Text
-              onPress={() => navigation.navigate('Register')}
-              style={{ color: 'blue' }}
-            >
-              Register
-            </Text>{' '}
-          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+            <Text>
+              Tidak Punya Akun ? <Text style={{ color: 'blue' }}>Register</Text>{' '}
+            </Text>
+          </TouchableOpacity>
         </View>
         <Image
           source={require('../../assets/Image/login2.png')}

@@ -7,6 +7,8 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
+  TouchableOpacity,
 } from 'react-native';
 import MyButton from '../components/Button';
 import { register } from '../redux/actions/authActions';
@@ -32,7 +34,7 @@ function RegisterScreen({ navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior="height" style={{ flex: 1 }}>
         <Image
           source={require('../../assets/Image/login1.png')}
           style={styles.Image1}
@@ -62,18 +64,17 @@ function RegisterScreen({ navigation }) {
             title="Register"
             onPress={handleRegister}
           />
-          <Text>
-            Sudah Punya Akun ?{' '}
-            <Text onPress={() => navigation.goBack()} style={{ color: 'blue' }}>
-              Login
-            </Text>{' '}
-          </Text>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text>
+              Sudah Punya Akun ? <Text style={{ color: 'blue' }}>Login</Text>{' '}
+            </Text>
+          </TouchableOpacity>
         </View>
         <Image
           source={require('../../assets/Image/login2.png')}
           style={styles.Image1}
         />
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 }

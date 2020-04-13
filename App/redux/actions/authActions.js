@@ -22,7 +22,7 @@ export const register = (userDate, navigation) => async (dispatch) => {
     const result = await response.data;
     Alert.alert(
       'Register success',
-      response.data.name,
+      result.data.name,
       [{ text: 'OK', onPress: () => navigation.navigate('Login') }],
       { cancelable: false }
     );
