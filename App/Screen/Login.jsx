@@ -1,55 +1,75 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Image,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import MyButton from '../components/Button';
-import { AuthContext } from '../context/authContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { logIn } from '../redux/actions/authActions';
 
 function LoginScreen({ navigation }) {
-  const { setToken } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleLogin = () => {
-    setToken(true);
-  };
-  return (
-    <View style={{ flex: 1 }}>
-      <Image
-        source={require('../../assets/Image/login1.png')}
-        style={styles.Image1}
-      />
 
-      <View style={styles.container}>
-        <TextInput
-          style={styles.textinput}
-          placeholder="Emaill"
-          onChangeText={(email) => setEmail(email)}
-          defaultValue={email}
-          autoCapitalize="none"
+  const stateReducer = useSelector((state) => state.auth);
+  const { isLoading } = stateReducer;
+  const dispatch = useDispatch();
+
+  const handleLogin = () => {
+    const data = {
+      email: email,
+      password: password,
+    };
+    dispatch(logIn(data));
+  };
+
+  return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={{ flex: 1 }}>
+        <Image
+          source={require('../../assets/Image/login1.png')}
+          style={styles.Image1}
         />
-        <TextInput
-          secureTextEntry={true}
-          type="password"
-          style={styles.textinput}
-          placeholder="Password"
-          autoCapitalize="none"
-          onChangeText={(password) => setPassword(password)}
-          defaultValue={password}
+
+        <View style={styles.container}>
+          <TextInput
+            style={styles.textinput}
+            placeholder="Emaill"
+            onChangeText={(email) => setEmail(email)}
+            defaultValue={email}
+            autoCapitalize="none"
+          />
+          <TextInput
+            secureTextEntry={true}
+            type="password"
+            style={styles.textinput}
+            placeholder="Password"
+            autoCapitalize="none"
+            onChangeText={(password) => setPassword(password)}
+            defaultValue={password}
+          />
+          <MyButton disabled={isLoading} onPress={handleLogin} title="Login" />
+          <Text>
+            Tidak Punya Akun ?{' '}
+            <Text
+              onPress={() => navigation.navigate('Register')}
+              style={{ color: 'blue' }}
+            >
+              Register
+            </Text>{' '}
+          </Text>
+        </View>
+        <Image
+          source={require('../../assets/Image/login2.png')}
+          style={styles.Image1}
         />
-        <MyButton onPress={handleLogin} title="Login" />
-        <Text>
-          Tidak Punya Akun ?{' '}
-          <Text
-            onPress={() => navigation.navigate('Register')}
-            style={{ color: 'blue' }}
-          >
-            Register
-          </Text>{' '}
-        </Text>
       </View>
-      <Image
-        source={require('../../assets/Image/login2.png')}
-        style={styles.Image1}
-      />
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -70,6 +90,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 1 },
     shadowRadius: 2,
     elevation: 3,
+    fontSize: 18,
   },
   Image1: {
     resizeMode: 'stretch',

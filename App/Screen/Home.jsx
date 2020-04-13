@@ -6,39 +6,27 @@ import {
   ScrollView,
   TextInput,
   FlatList,
+  Button,
+  AsyncStorage,
 } from 'react-native';
 import * as Icons from '@expo/vector-icons';
 import Card from '../components/Card';
 import CardItems from '../components/CardItems';
 import CardList from '../components/CardList';
-import { AuthContext } from '../context/authContext';
-const token =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvbWFpbmJlcnNhbWEuZGVtb3NhbmJlcmNvZGUuY29tXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTg1Mzc1ODYwLCJleHAiOjE1ODU0MTkwNjAsIm5iZiI6MTU4NTM3NTg2MCwianRpIjoiZ0t3SXNTZWU3ZTJBUnBzMCIsInN1YiI6MTAsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.aUPlADzwEIgX4mxbtitO662r5iunO57qSgZYC9nVWNg';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Home({ navigation }) {
-  const [data, setData] = useState({});
+  const stateReducer = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('token');
+    dispatch({ type: 'REMOVE_USER' });
+  };
 
   useEffect(() => {
-    const getVanue = async () => {
-      try {
-        const response = await fetch(
-          `https://mainbersama.demosanbercode.com/api/venues`,
-          {
-            method: 'GET',
-            headers: {
-              Authorizations: `Bearer ${token}`,
-            },
-          }
-        );
-        const result = await response.json();
-        console.log(result);
-        setData(result.venues);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getVanue();
-  }, []);
+    console.log(stateReducer);
+  }, [stateReducer]);
 
   const renderItem = ({ item }) => (
     <CardList
@@ -49,7 +37,6 @@ function Home({ navigation }) {
     />
   );
 
-  const { setToken } = useContext(AuthContext);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -89,11 +76,12 @@ function Home({ navigation }) {
         <Text style={styles.textTersedia}>Tersedia</Text>
 
         <TextInput style={styles.cariLokasi} placeholder="Cari Lokasi" />
-        <FlatList
+        {/* <FlatList
           data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-        />
+        /> */}
+        <Button title="Logout" onPress={handleLogout} />
       </ScrollView>
     </View>
   );

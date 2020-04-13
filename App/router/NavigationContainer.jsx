@@ -1,15 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './authStack';
 import BottomNavigator from './BottomNavigator';
-import HomeStack from './HomeStack';
-import { AuthContext } from '../context/authContext';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { AsyncStorage } from 'react-native';
 
 export default function RouteContainer() {
-  const { token } = useContext(AuthContext);
+  const authReducer = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await AsyncStorage.getItem('token');
+      dispatch({ type: 'SET_USER', payload: token });
+    };
+
+    getToken();
+  }, []);
+
   return (
     <NavigationContainer>
-      {token ? <BottomNavigator /> : <AuthStack />}
+      {authReducer.userToken ? <BottomNavigator /> : <AuthStack />}
     </NavigationContainer>
   );
 }
